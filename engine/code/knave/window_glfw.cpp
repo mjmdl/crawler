@@ -1,15 +1,14 @@
 #ifdef KNAVE_GLFW
 
-#include <iostream>
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "logger.hpp"
 #include "window_glfw.hpp"
 
 static void print_glfw_error(int error, const char *description)
 {
-	std::cerr << "GLFW error #" << error << ": " << description << "\n";
+	knave::KERROR("GLFW error #{}: {}", error, description);
 }
 
 static void request_window_to_close(GLFWwindow *window)
@@ -29,7 +28,7 @@ bool knave::Window_Glfw::initialize(void)
 	
 	if (!glfwInit())
 	{
-		std::cerr << "Could not initialize GLFW!" << std::endl;
+		KERROR("Could not initialize GLFW!");
 		return false;
 	}
 
@@ -41,14 +40,14 @@ bool knave::Window_Glfw::initialize(void)
 	handle = glfwCreateWindow(960, 540, "Knave", NULL, NULL);
 	if (!handle)
 	{
-		std::cerr << "Could not create the GLFW window!" << std::endl;
+		KERROR("Could not create the GLFW window!");
 		return false;
 	}
 
 	glfwMakeContextCurrent(handle);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cerr << "Could not load GLAD!" << std::endl;
+		KERROR("Could not load GLAD!");
 		return false;
 	}
 	
@@ -58,7 +57,7 @@ bool knave::Window_Glfw::initialize(void)
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
-		std::cerr << "OpenGL error: #" << error << ".\n";
+		KERROR("OpenGL error: #{}.", error);
 	}
 	
 	return true;

@@ -4,12 +4,12 @@
 
 void crawler::Game::bootstrap(void)
 {
-	std::cout << "Game Boostrap'd" << std::endl;
+	LOG_TRACE("Game Boostrap'd");
 }
 
 void crawler::Game::shutdown(void)
 {
-	std::cout << "Game Shutdown'd" << std::endl;
+	LOG_TRACE("Game Shutdown'd");
 }
 
 knave::Application *knave::create_application(void)
